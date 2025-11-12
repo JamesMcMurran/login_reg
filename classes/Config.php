@@ -1,4 +1,5 @@
 <?php
+namespace App;
 
 class Config {
     public static function get($path = null) {
