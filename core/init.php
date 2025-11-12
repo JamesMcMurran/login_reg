@@ -2,12 +2,15 @@
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
 $GLOBALS['config'] = array(
     'mysql' => array(
-        'host' => 'localhost',
-        'username' => 'root',
-        'password' => 'root',
-        'db' => 'customers'
+        'host' => $_ENV['DB_HOST'],
+        'username' => $_ENV['DB_USERNAME'],
+        'password' => $_ENV['DB_PASSWORD'],
+        'db' => $_ENV['DB_DATABASE']
     ),
     'remember' => array(
         'cookie_name' => 'hash',
@@ -19,11 +22,13 @@ $GLOBALS['config'] = array(
     )
 );
 
-spl_autoload_register(function($class) {
-    require_once 'classes/' . $class . '.php';
-});
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-require_once 'functions/sanitize.php';
+use App\Cookie;
+use App\Config;
+use App\DB;
+use App\Session;
+use App\User;
 
 if(Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
     // user asked to be remembered 
