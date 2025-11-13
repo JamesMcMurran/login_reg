@@ -1,0 +1,19 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "A PHP project with SASS integration.",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass assets/scss:public/css",
+    "watch": "sass --watch assets/scss:public/css"
+  },
+  "keywords": [
+    "php",
+    "sass"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.5.0"
+  }
+}
